@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "609662759962",
+    "project_id": "classprojectapp-45096",
+    "storage_bucket": "classprojectapp-45096.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:609662759962:android:030f3b51504a4bc6fd8da3",
+        "android_client_info": {
+          "package_name": "com.chesteve.last"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "609662759962-a5mchaagt88vmm5f7t606atbspfeg1p0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbttlg0hWDwZl-Srp-6x8uVroUZX9kd0A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "609662759962-a5mchaagt88vmm5f7t606atbspfeg1p0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

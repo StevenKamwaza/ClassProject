@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/skyblue"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/mainBar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:padding="15dp"
+            android:text="Tiyende Nawo"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:alpha="0.7"
+            android:padding="15dp"
+            android:text="About Us"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:id="@+id/aboutUSView"/>
+
+
+    </RelativeLayout>
+
+   <ScrollView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical">
+
+           <RelativeLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal">
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_alignParentLeft="true"
+                   android:layout_marginLeft="6sp"
+                   android:alpha="0.8"
+                   android:text="Tiyende\n Nawo \n\nBooking App"
+                   android:textColor="@color/white"
+                   android:textSize="28sp"
+                   android:textStyle="bold"/>
+
+               <ImageView
+                   android:layout_width="230dp"
+                   android:layout_height="185dp"
+                   android:layout_alignParentEnd="true"
+                   android:layout_alignParentRight="true"
+                   android:layout_marginLeft="0sp"
+                   android:layout_marginTop="-15dp"
+                   android:background="@drawable/usermainbar"/>
+
+           </RelativeLayout>
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="-3sp"
+               android:orientation="vertical">
+
+               <TextView
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_gravity="center"
+                   android:alpha="0.7"
+                   android:text="Travel Around Malawi with Us \nAnd travel safely"
+                   android:textAlignment="center"
+                   android:textColor="@color/black"
+                   android:textSize="20sp"
+                   android:textStyle="bold"/>
+
+               <HorizontalScrollView
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_margin="20sp"
+                   android:scrollbars="vertical">
+
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="horizontal">
+
+                       <ImageView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:layout_marginTop="15sp"
+                           android:src="@drawable/a3"/>
+
+                       <ImageView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:layout_marginTop="15sp"
+                           android:src="@drawable/a2" />
+
+
+                   </LinearLayout>
+
+
+               </HorizontalScrollView>
+               <TextView
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_marginLeft="20sp"
+                   android:layout_marginRight="20sp"
+                   android:alpha="0.9"
+                   android:text="Do you really want to places as you travel? Want to travel in time? Tiyende Nawo Taxi drivers are more than drivers tthey are also tourist guiders.
+                  "
+                   android:textColor="@color/black"/>
+
+               <Button
+                   android:id="@+id/gotoBookingView"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_margin="20sp"
+                   android:backgroundTint="@color/neonDark"
+                   android:text="Book A Taxi Now"/>
+
+               <Button
+                   android:id="@+id/gotoLogin"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_marginLeft="20sp"
+                   android:layout_marginRight="20sp"
+                   android:layout_marginBottom="20sp"
+                   android:backgroundTint="@color/neonDark"
+                   android:text="Sign In as Operator"/>
+           </LinearLayout>
+
+       </LinearLayout>
+   </ScrollView>
+</LinearLayout>

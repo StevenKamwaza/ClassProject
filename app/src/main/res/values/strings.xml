@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Tiyende</string>
+    <string name="map_key" translatable="false">AIzaSyBHZdMXVaO6yDuQUbP8CHvpF8xZihmEabo</string>
+    <string name="map_location">Current User Location</string>
+    <string name="title_activity_maps">Map</string>
+</resources>

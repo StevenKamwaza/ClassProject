@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/neonDark"
+    tools:context=".AboutActivity">
+
+    <ImageView
+        android:id="@+id/homeimage"
+        android:layout_width="0dp"
+        android:layout_height="223dp"
+        android:background="@drawable/backhalfhalf"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/mainBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="15sp"
+            android:layout_marginLeft="15sp"
+            android:background="@drawable/goback_arrow"
+            android:onClick="goBackToHome"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="15dp"
+            android:text="Tiyende Nawo"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/scrollablehome"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/homeimage">
+
+        <LinearLayout
+            android:id="@+id/linear"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/titleofApp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tiyende Nawo Taxi Book App"
+                android:textSize="24sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <RatingBar
+                    android:id="@+id/homeratingbar"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:max="5"
+                    android:numStars="5"
+                    android:progressTint="@color/blueDar"
+                    android:rating="4.5"
+                    android:stepSize="0.5"
+                    tools:targetApi="LOLLIPOP" />
+
+                <TextView
+                    android:id="@+id/ratingtext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:text="4.95"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/ratingtext2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="7dp"
+                    android:text="(980)"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="serif-monospace"
+                android:text="About US"
+                android:textColor="@color/darko"
+                android:textSize="20sp"
+                android:textStyle="italic|bold" />
+
+            <TextView
+                android:id="@+id/about_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="46dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                android:alpha="0.8"
+                android:text="From humble beginnings, in just over days , Tiyende Nawo Taxis have grown and changed with the times to become one of Malawi’s most trusted and respected corporate taxi services"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/about_text_cost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="serif-monospace"
+                android:text="Our Contacts"
+                android:textColor="@color/darko"
+                android:textSize="20sp"
+                android:textStyle="italic|bold" />
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginLeft="46sp"
+               android:layout_marginTop="3sp"
+               android:orientation="vertical">
+
+               <TextView
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:alpha="0.8"
+                   android:text="(+265) 999 102 644"
+                   android:textColor="@color/black"
+                   android:textSize="18sp"
+                   android:textStyle="bold"/>
+
+               <TextView
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:alpha="0.8"
+                   android:text=" stevenkamwaza@gmail.com"
+                   android:textColor="@color/black"
+                   android:textSize="18sp"
+                   android:textStyle="bold"/>
+
+               <TextView
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:alpha="0.8"
+                   android:text="Address \n MACODE, 280, Zomba, MAlawi."
+                   android:textColor="@color/black"
+                   android:textSize="18sp"
+                   android:textStyle="bold"/>
+           </LinearLayout>
+
+            <Button
+                android:id="@+id/getstarted"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/btn_shape"
+                android:backgroundTint="@color/mainBar"
+                android:text="Book Now"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:backgroundTint="@color/darko" />
+
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
