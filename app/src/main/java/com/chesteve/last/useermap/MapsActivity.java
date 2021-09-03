@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.chesteve.last.R;
 import com.chesteve.last.databinding.ActivityMapsBinding;
-import com.chesteve.last.useermap.databinding.ActivityMapsBinding;
+//import com.chesteve.last.useermap.databinding.ActivityMapsBinding;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
