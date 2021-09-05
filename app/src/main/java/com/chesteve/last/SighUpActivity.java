@@ -58,7 +58,7 @@ public class SighUpActivity extends AppCompatActivity {
         //auth
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore=FirebaseFirestore.getInstance();
-
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
 
     }
@@ -101,10 +101,6 @@ public class SighUpActivity extends AppCompatActivity {
                                                 //get the id of this just created user
                                                userId = firebaseAuth.getCurrentUser().getUid();
 
-                                               //creating document instance to store our members data,passing the id to the document
-                                               DocumentReference registeredUsers=firebaseFirestore.collection("Users").document(email);
-
-                                                //HashMap<String,Object> member=new HashMap<>();
                                                HashMap< String,Object> hashMap = new HashMap<>();
 
                                                hashMap.put("location", mylocation.getText().toString());
@@ -112,20 +108,20 @@ public class SighUpActivity extends AppCompatActivity {
                                                hashMap.put("username", myusername.getText().toString());
                                                hashMap.put("email",email);
 
-                                               registeredUsers.set(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                               databaseReference.child("Users").child(userId).setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                    @Override
-                                                   public void onSuccess(Void unused) {
-                                                       Toast.makeText(SighUpActivity.this, "User created", Toast.LENGTH_SHORT).show();
-                                                    }
-                                               }).addOnFailureListener(new OnFailureListener() {
-                                                   @Override
-                                                   public void onFailure(@NonNull Exception e) {
-                                                       Toast.makeText(SighUpActivity.this, "Error! "+e.toString(), Toast.LENGTH_SHORT).show();
+                                                   public void onComplete(@NonNull  Task<Void> task) {
+                                                       if (task.isSuccessful()){
+                                                           Toast.makeText(SighUpActivity.this, "User created", Toast.LENGTH_SHORT).show();
+
+                                                           startActivity(new Intent(SighUpActivity.this, AdminMainActivity.class));
+                                                       }
+                                                       else {
+                                                           Toast.makeText(SighUpActivity.this, "Ooops  Something went wrong ", Toast.LENGTH_SHORT).show();
+
+                                                       }
                                                    }
                                                });
-
-
-                                               startActivity(new Intent(getApplicationContext(), AdminMainActivity.class));
 
                                            } else {
                                                Toast.makeText(SighUpActivity.this, "Oops! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
