@@ -108,4 +108,11 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
+
+    public String validate(String user, String user1) {
+        if(loguseremail.equals("email") && loguserpassword.equals("password"))
+            return "Login was successful";
+        else
+            return "Invalid login!";
+    }
 }
