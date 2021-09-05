@@ -98,7 +98,7 @@
                     android:textSize="20sp" />
 
                 <Spinner
-                    android:id="@+id/operaname"
+                    android:id="@+id/mySpinner"
                     style="?spinnerStyle"
                     android:layout_width="210sp"
                     android:layout_height="wrap_content"

@@ -1,5 +1,6 @@
 package com.chesteve.last;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
@@ -9,16 +10,22 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 
 import com.chesteve.last.useermap.Maps;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class TaxiOperatorsActivity extends AppCompatActivity {
@@ -26,10 +33,13 @@ public class TaxiOperatorsActivity extends AppCompatActivity {
     DatePickerDialog datePickerDialog;
     TimePickerDialog timePickerDialog;
     Button  golive;
-    Spinner taxiname;
-
+    Spinner mylist;
+    //ArrayList <List> sinnerdata;
     //firebase
     DatabaseReference spinnerReference;
+    ValueEventListener valueEventListener;
+    ArrayList <String> arrayList;
+    ArrayAdapter <String> adapter;
 
 
     @Override
@@ -40,7 +50,14 @@ public class TaxiOperatorsActivity extends AppCompatActivity {
         //initialising
         tolocation = (EditText) findViewById(R.id.tolocation);
         fromlocation = (EditText) findViewById(R.id.fromlocation);
-        taxiname = (Spinner) findViewById(R.id.operaname);
+        mylist = (Spinner) findViewById(R.id.mySpinner);
+        spinnerReference = FirebaseDatabase.getInstance().getReference("Users");
+        mySpinnerData();
+        arrayList = new ArrayList<String>();
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, arrayList);
+        mylist.setAdapter(adapter);
+
+
         paphone = (EditText) findViewById(R.id.pphonenumber);
         //datepicker
         dateTextRaw = (EditText) findViewById(R.id.dateText);
@@ -97,6 +114,24 @@ public class TaxiOperatorsActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void mySpinnerData() {
+        valueEventListener = spinnerReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull  DataSnapshot snapshot) {
+
+                for (DataSnapshot myList : snapshot.getChildren()){
+                    arrayList.add(myList.child("taxisname").getValue().toString());
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull  DatabaseError error) {
+
+            }
+        });
     }
 
     public void goBack(View view) {
