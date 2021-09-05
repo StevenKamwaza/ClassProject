@@ -17,6 +17,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,8 +29,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
 public class TaxiOperatorsActivity extends AppCompatActivity {
+
     EditText tolocation,fromlocation,paphone,dateTextRaw, timeTextRaw;
     DatePickerDialog datePickerDialog;
     TimePickerDialog timePickerDialog;
@@ -40,6 +44,7 @@ public class TaxiOperatorsActivity extends AppCompatActivity {
     ValueEventListener valueEventListener;
     ArrayList <String> arrayList;
     ArrayAdapter <String> adapter;
+    String taxisId;
 
 
     @Override
@@ -51,6 +56,7 @@ public class TaxiOperatorsActivity extends AppCompatActivity {
         tolocation = (EditText) findViewById(R.id.tolocation);
         fromlocation = (EditText) findViewById(R.id.fromlocation);
         mylist = (Spinner) findViewById(R.id.mySpinner);
+
         spinnerReference = FirebaseDatabase.getInstance().getReference("Users");
         mySpinnerData();
         arrayList = new ArrayList<String>();
@@ -123,6 +129,8 @@ public class TaxiOperatorsActivity extends AppCompatActivity {
 
                 for (DataSnapshot myList : snapshot.getChildren()){
                     arrayList.add(myList.child("taxisname").getValue().toString());
+
+                    taxisId = myList.getKey();
                 }
                 adapter.notifyDataSetChanged();
             }
@@ -151,7 +159,21 @@ public class TaxiOperatorsActivity extends AppCompatActivity {
         if (tolocation.getText().toString().isEmpty()||fromlocation.getText().toString().isEmpty()||
                 dateTextRaw.getText().toString().isEmpty()||timeTextRaw.getText().toString().isEmpty()||
                 paphone.getText().toString().isEmpty()){
-            Intent goBack = new Intent(getApplicationContext(), MainActivity.class);
+
+
+            HashMap< String,Object> hashMap = new HashMap<>();
+
+            hashMap.put("to_location",tolocation.getText().toString());
+            hashMap.put("from_location",fromlocation.getText().toString());
+            hashMap.put("date", dateTextRaw.getText().toString());
+            hashMap.put("time",timeTextRaw.getText().toString());
+            hashMap.put("phone",paphone.getText().toString());
+
+          // spinnerReference = FirebaseDatabase.getInstance().getReference();
+
+           // spinnerReference.getKey(taxisId).child("Messages").setValue(hashMap);
+
+                Intent goBack = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(goBack);
         }
         else {

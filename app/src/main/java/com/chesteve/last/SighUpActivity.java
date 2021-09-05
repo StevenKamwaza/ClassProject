@@ -64,8 +64,7 @@ public class SighUpActivity extends AppCompatActivity {
     }
 
     //add a user in database
-    private  void addTaxi(String taxis, String username, String pass
-          ,String email, String loca){
+    private  void addTaxi(String taxis, String username, String pass ,String email, String loca){
 
     }
 
