@@ -29,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     TextView signUpText;
     ImageView imageViewBack;
     ProgressBar progressbar;
-    //auth refere
+//    //auth refere
     FirebaseAuth firebaseAuth;
 
     @Override
@@ -57,22 +57,25 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         progressbar = (ProgressBar) findViewById(R.id.progressbar);
+
+        btnLogin = (Button) findViewById(R.id.loginBtn);
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                homeWelcome();
+
+            }
+        });
     }
 
-    public void taxiLogin(View view) {
-        gotoAdmin();
-    }
-    private void gotoAdmin(){
+    private void homeWelcome(){
 
-        // show the visibility of progress bar to show loading
         progressbar.setVisibility(View.VISIBLE);
 
-        // Take the value of two edit texts in Strings
         String email, password;
         email = loguseremail.getText().toString();
         password = loguserpassword.getText().toString();
 
-        // validations for input email and password
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(getApplicationContext(),
                     "Please enter email!!",
@@ -89,43 +92,20 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        // signin existing user
-        firebaseAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(
-                        new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(
-                                    @NonNull Task<AuthResult> task)
-                            {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(getApplicationContext(),
-                                            "Login successful!!",
-                                            Toast.LENGTH_LONG)
-                                            .show();
+        firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(
+                LoginActivity.this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()){
+                    Toast.makeText(LoginActivity.this, "Sign In Successfully", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
+                }
+                else {
+                  Toast.makeText(LoginActivity.this, "Oops! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
 
-                                    // hide the progress bar
-                                    progressbar.setVisibility(View.GONE);
-                                    Intent intent
-                                            = new Intent(LoginActivity.this,
-                                            AdminMainActivity.class);
-                                    startActivity(intent);
-                                }
+                }
+            }
+        });
 
-                                else {
-
-                                    // sign-in failed
-                                    Toast.makeText(getApplicationContext(),
-                                            "Login failed!!",
-                                            Toast.LENGTH_LONG)
-                                            .show();
-
-                                    // hide the progress bar
-                                    progressbar.setVisibility(View.GONE);
-                                }
-                            }
-                        });
     }
-
-
-
 }

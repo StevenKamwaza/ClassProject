@@ -10,16 +10,22 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chesteve.last.admin.AdminMainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 
@@ -33,6 +39,9 @@ public class SighUpActivity extends AppCompatActivity {
     //firebase auth system
     FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
+    FirebaseFirestore firebaseFirestore;
+    String userId;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +57,7 @@ public class SighUpActivity extends AppCompatActivity {
 
         //auth
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseFirestore=FirebaseFirestore.getInstance();
 
 
 
@@ -66,8 +76,7 @@ public class SighUpActivity extends AppCompatActivity {
 
     //adding dat
 
-        private void registerNewUser()
-        {
+        private void registerNewUser(){
 
             String email, password;
             email = myPhone.getText().toString();
@@ -83,61 +92,48 @@ public class SighUpActivity extends AppCompatActivity {
             }
 
             // create new user or register new user
-            firebaseAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
 
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task)
-                        {
-                            if (task.isSuccessful()) {
+            firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                     @Override
+                                     public void onComplete(@NonNull Task<AuthResult> task) {
+                                           if (task.isSuccessful()) {
+                                               Toast.makeText(SighUpActivity.this, "User registered successfully", Toast.LENGTH_SHORT).show();
+                                                //get the id of this just created user
+                                               userId = firebaseAuth.getCurrentUser().getUid();
 
-                                HashMap hashMap = new HashMap();
+                                               //creating document instance to store our members data,passing the id to the document
+                                               DocumentReference registeredUsers=firebaseFirestore.collection("Users").document(email);
 
-                                hashMap.put("location", mylocation.getText().toString());
-                                hashMap.put("taxisname",myOpername.getText().toString());
-                                hashMap.put("username", myusername.getText().toString());
-                                hashMap.put("email",email);
+                                                //HashMap<String,Object> member=new HashMap<>();
+                                               HashMap< String,Object> hashMap = new HashMap<>();
 
-                                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                                String taxiid = firebaseUser.getUid();
+                                               hashMap.put("location", mylocation.getText().toString());
+                                               hashMap.put("taxisname",myOpername.getText().toString());
+                                               hashMap.put("username", myusername.getText().toString());
+                                               hashMap.put("email",email);
 
-                                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(taxiid);
-                                databaseReference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull  Task<Void> task) {
-                                        if(task.isSuccessful()){
-                                            Intent intent = new Intent(SighUpActivity.this,LoginActivity.class);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                            startActivity(intent);
-                                            finish();
-
-                                        }
-                                    }
-                                });
-
+                                               registeredUsers.set(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                   @Override
+                                                   public void onSuccess(Void unused) {
+                                                       Toast.makeText(SighUpActivity.this, "User created", Toast.LENGTH_SHORT).show();
+                                                    }
+                                               }).addOnFailureListener(new OnFailureListener() {
+                                                   @Override
+                                                   public void onFailure(@NonNull Exception e) {
+                                                       Toast.makeText(SighUpActivity.this, "Error! "+e.toString(), Toast.LENGTH_SHORT).show();
+                                                   }
+                                               });
 
 
-//                                Toast.makeText(getApplicationContext(),
-//                                        "Registration successful!",
-//                                        Toast.LENGTH_LONG)
-//                                        .show();
-//
-//
-//
-//                                // if the user created intent to login activity
-//                                Intent intent
-//                                        = new Intent(SighUpActivity.this,
-//                                        MainActivity.class);
-//                                startActivity(intent);
-                            }
-                            else {
+                                               startActivity(new Intent(getApplicationContext(), AdminMainActivity.class));
 
-                                // Registration failed
-                                Toast.makeText( getApplicationContext(), "Registration failed! Please try again later", Toast.LENGTH_LONG) .show();
-
-                            }
-                        }
-                    });
+                                           } else {
+                                               Toast.makeText(SighUpActivity.this, "Oops! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                               //closing progressbar
+                                               //progressbar.setVisibility(View.INVISIBLE);
+                                           }
+                                       }
+                                    });
         }
 
     public void registerNewUser(View view) {

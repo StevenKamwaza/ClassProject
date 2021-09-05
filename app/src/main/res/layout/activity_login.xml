@@ -137,7 +137,7 @@
                 android:text="Sign In"
                 android:textAlignment="center"
                 android:textSize="14sp"
-                android:onClick="taxiLogin"
+                android:id="@+id/loginBtn"
                 app:backgroundTint="@color/teal_700" />
 
 

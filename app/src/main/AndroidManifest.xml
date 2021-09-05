@@ -35,8 +35,6 @@
         <activity
             android:name=".useermap.MapsActivity"
             android:label="@string/title_activity_maps"></activity>
-        <activity android:name=".auth.SighInActivity" />
-        <activity android:name=".auth.RegisterActivity" />
         <activity android:name=".admin.AdminBookingDataActivity" />
         <activity android:name=".admin.AdminMainActivity" />
         <activity android:name=".SighUpActivity" />
