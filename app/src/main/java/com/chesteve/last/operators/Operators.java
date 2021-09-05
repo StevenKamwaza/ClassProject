@@ -1,5 +1,6 @@
 package com.chesteve.last.operators;
 
+
 public class Operators {
     private String taxisname;
     private String location;

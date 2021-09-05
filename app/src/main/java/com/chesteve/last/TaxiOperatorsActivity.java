@@ -184,9 +184,9 @@ public class TaxiOperatorsActivity extends AppCompatActivity {
             hashMap.put("phone",paphone.getText().toString());
 
 
-            DatabaseReference db = database.getReference("/Users/"+taxisId+"/messageData");
+            DatabaseReference db = database.getReference(taxisId);
 
-                db.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                db.child("message").setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull  Task<Void> task) {
                         if (task.isSuccessful()){
