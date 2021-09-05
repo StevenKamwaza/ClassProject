@@ -16,8 +16,10 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,7 +38,7 @@ public class TaxiOperatorsActivity extends AppCompatActivity {
     EditText tolocation,fromlocation,paphone,dateTextRaw, timeTextRaw;
     DatePickerDialog datePickerDialog;
     TimePickerDialog timePickerDialog;
-    Button  golive;
+    Button  golive, booking;
     Spinner mylist;
     //ArrayList <List> sinnerdata;
     //firebase
@@ -45,6 +47,8 @@ public class TaxiOperatorsActivity extends AppCompatActivity {
     ArrayList <String> arrayList;
     ArrayAdapter <String> adapter;
     String taxisId;
+    FirebaseUser firebaseUser;
+    FirebaseDatabase database;
 
 
     @Override
@@ -58,6 +62,7 @@ public class TaxiOperatorsActivity extends AppCompatActivity {
         mylist = (Spinner) findViewById(R.id.mySpinner);
 
         spinnerReference = FirebaseDatabase.getInstance().getReference("Users");
+        database= FirebaseDatabase.getInstance();
         mySpinnerData();
         arrayList = new ArrayList<String>();
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, arrayList);
@@ -119,6 +124,13 @@ public class TaxiOperatorsActivity extends AppCompatActivity {
                 startActivity(goli);
             }
         });
+        booking = (Button) findViewById(R.id.bookbtn);
+        booking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bookingBtn();
+            }
+        });
 
     }
 
@@ -127,10 +139,12 @@ public class TaxiOperatorsActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull  DataSnapshot snapshot) {
 
+                arrayList.clear();
                 for (DataSnapshot myList : snapshot.getChildren()){
                     arrayList.add(myList.child("taxisname").getValue().toString());
 
                     taxisId = myList.getKey();
+
                 }
                 adapter.notifyDataSetChanged();
             }
@@ -155,7 +169,7 @@ public class TaxiOperatorsActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void bookingBtn(View view) {
+    public void bookingBtn() {
         if (tolocation.getText().toString().isEmpty()||fromlocation.getText().toString().isEmpty()||
                 dateTextRaw.getText().toString().isEmpty()||timeTextRaw.getText().toString().isEmpty()||
                 paphone.getText().toString().isEmpty()){
@@ -169,12 +183,23 @@ public class TaxiOperatorsActivity extends AppCompatActivity {
             hashMap.put("time",timeTextRaw.getText().toString());
             hashMap.put("phone",paphone.getText().toString());
 
-          // spinnerReference = FirebaseDatabase.getInstance().getReference();
 
-           // spinnerReference.getKey(taxisId).child("Messages").setValue(hashMap);
+            DatabaseReference db = database.getReference("/Users/"+taxisId+"/messageData");
 
-                Intent goBack = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(goBack);
+                db.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull  Task<Void> task) {
+                        if (task.isSuccessful()){
+                            //startA
+                            // ctivity(new Intent(TaxiOperatorsActivity.this, MainActivity.class));
+                            Toast.makeText(TaxiOperatorsActivity.this, "Successfully Booked A Taxi", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            Toast.makeText(TaxiOperatorsActivity.this, "Oops something went wrong!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
         }
         else {
 

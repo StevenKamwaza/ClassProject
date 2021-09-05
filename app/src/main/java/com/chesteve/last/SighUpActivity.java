@@ -40,6 +40,7 @@ public class SighUpActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
     FirebaseFirestore firebaseFirestore;
+
     String userId;
     ProgressBar progressBar;
 

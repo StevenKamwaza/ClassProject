@@ -101,6 +101,7 @@
                     android:id="@+id/mySpinner"
                     style="?spinnerStyle"
                     android:layout_width="210sp"
+                    android:backgroundTint="@color/neonDark"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"/>
 
@@ -135,7 +136,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7sp"
                 android:backgroundTint="@color/neonDark"
-                android:onClick="bookingBtn"
+                android:id="@+id/bookbtn"
                 android:text="Book A Taxi Now"/>
 
             <Button
