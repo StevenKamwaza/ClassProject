@@ -202,6 +202,7 @@ public class TaxiOperatorsActivity extends AppCompatActivity {
                         Toast.makeText(TaxiOperatorsActivity.this, "Oops something went wrong!", Toast.LENGTH_SHORT).show();
                     }
                 }
+            });
             Log.d("D","Success");
         }
     }
