@@ -62,7 +62,7 @@ public class TaxiOperatorsActivity extends AppCompatActivity {
         mylist = (Spinner) findViewById(R.id.mySpinner);
 
         spinnerReference = FirebaseDatabase.getInstance().getReference("Users");
-        database= FirebaseDatabase.getInstance();
+        database= FirebaseDatabase.getInstance("Users/"+taxisId+"/messages");
         mySpinnerData();
         arrayList = new ArrayList<String>();
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, arrayList);
@@ -143,7 +143,7 @@ public class TaxiOperatorsActivity extends AppCompatActivity {
                 for (DataSnapshot myList : snapshot.getChildren()){
                     arrayList.add(myList.child("taxisname").getValue().toString());
 
-                    taxisId = myList.getKey();
+                    taxisId = spinnerReference.push().getKey();
 
                 }
                 adapter.notifyDataSetChanged();
@@ -174,7 +174,11 @@ public class TaxiOperatorsActivity extends AppCompatActivity {
                 dateTextRaw.getText().toString().isEmpty()||timeTextRaw.getText().toString().isEmpty()||
                 paphone.getText().toString().isEmpty()){
 
+            Toast.makeText(this, "Please fill all fields!", Toast.LENGTH_SHORT).show();
+        }
+        else {
 
+            //inserting data
             HashMap< String,Object> hashMap = new HashMap<>();
 
             hashMap.put("to_location",tolocation.getText().toString());
@@ -184,26 +188,20 @@ public class TaxiOperatorsActivity extends AppCompatActivity {
             hashMap.put("phone",paphone.getText().toString());
 
 
-            DatabaseReference db = database.getReference(taxisId);
+           //DatabaseReference db = database.getReference(taxisId);
 
-                db.child("message").setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull  Task<Void> task) {
-                        if (task.isSuccessful()){
-                            //startA
-                            // ctivity(new Intent(TaxiOperatorsActivity.this, MainActivity.class));
-                            Toast.makeText(TaxiOperatorsActivity.this, "Successfully Booked A Taxi", Toast.LENGTH_SHORT).show();
-                        }
-                        else{
-                            Toast.makeText(TaxiOperatorsActivity.this, "Oops something went wrong!", Toast.LENGTH_SHORT).show();
-                        }
+            spinnerReference.child("message").setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull  Task<Void> task) {
+                    if (task.isSuccessful()){
+                        //startA
+                        // ctivity(new Intent(TaxiOperatorsActivity.this, MainActivity.class));
+                        Toast.makeText(TaxiOperatorsActivity.this, "Successfully Booked A Taxi", Toast.LENGTH_SHORT).show();
                     }
-                });
-
-        }
-        else {
-
-            //inserting data
+                    else{
+                        Toast.makeText(TaxiOperatorsActivity.this, "Oops something went wrong!", Toast.LENGTH_SHORT).show();
+                    }
+                }
             Log.d("D","Success");
         }
     }
